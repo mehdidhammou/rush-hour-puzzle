@@ -9,11 +9,11 @@ class Search:
     """A* using the manhattan distance"""
 
     @staticmethod
-    def astar(puzzle: RushHourPuzzle, heuristic):
+    def astar(puzzle: RushHourPuzzle, heuristic) -> tuple[Node, int]:
         start_node = Node(puzzle, None, None, 0, heuristic)
 
         open_list: list[Node] = []
-
+        
         complexity = 0
 
         # priority queue for the nodes to be expanded
@@ -31,7 +31,9 @@ class Search:
             closed_set.add(current_node.state)
 
             successors = current_node.state.successorFunction()
-
+            
+            print("step: ", complexity)
+            
             complexity += 1
 
             for action, successor_state in successors:

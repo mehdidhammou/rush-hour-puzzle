@@ -1,7 +1,7 @@
 from classes.RushHourPuzzle import RushHourPuzzle
 from classes.Search import Search
 from classes.Game import Game
-
+from classes.TestGame import TestGame
 PUZZLE_FILE = "lib/puzzles/1.csv"
 HEURISTIC = 4
 
@@ -17,15 +17,19 @@ def main():
     goal_node, complexity = results
     
     solution = goal_node.getSolution()
-    path = goal_node.getPath()
     
     print(f"Path cost: {goal_node.g}")
     print(f"Number of steps: {complexity}")
     print("Moves: {}".format(" ".join(map(str, solution))))
     
-
+    path = goal_node.getPath()
     game = Game(path, initial_state)
     game.run()    
 
-if __name__ == "__main__":
-    main()
+def main2():
+    initial_state = RushHourPuzzle(PUZZLE_FILE)
+    RushHourPuzzle.printRushHourBoard(initial_state.board)
+    TestGame.run(initial_state, HEURISTIC)
+    
+    
+main2()
