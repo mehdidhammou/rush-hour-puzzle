@@ -26,6 +26,7 @@ class Node:
             1: lambda: self.heuristic1(),
             2: lambda: self.heuristic2(),
             3: lambda: self.heuristic3(),
+            4: lambda: 4 * self.heuristic1() + self.heuristic2(),
         }
         return self.g + heuristics[heuristic]()
 

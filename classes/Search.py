@@ -9,7 +9,7 @@ class Search:
     """A* using the manhattan distance"""
 
     @staticmethod
-    def astar(puzzle: RushHourPuzzle, heuristic=1):
+    def astar(puzzle: RushHourPuzzle, heuristic):
         start_node = Node(puzzle, None, None, 0, heuristic)
 
         open_list: list[Node] = []
