@@ -32,6 +32,8 @@ class Search:
 
             successors = current_node.state.successorFunction()
 
+            # clear the terminal
+            print("\033[H\033[J")
             print("step: ", complexity)
 
             complexity += 1
