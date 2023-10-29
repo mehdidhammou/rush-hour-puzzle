@@ -3,6 +3,9 @@ from classes.RushHourPuzzle import RushHourPuzzle
 
 
 class Node:
+    def __hash__(self) -> int:
+        return hash(self.state)
+
     def __eq__(self, other):
         if not isinstance(other, Node):
             return NotImplemented

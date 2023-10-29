@@ -13,14 +13,14 @@ class Search:
         start_node = Node(puzzle, None, None, 0, heuristic)
 
         open_list: list[Node] = []
-        
+
         complexity = 0
 
         # priority queue for the nodes to be expanded
         heapq.heappush(open_list, start_node)
 
         # set of nodes that have been expanded
-        closed_set = set()
+        closed_set : set[Node] = set()
 
         while open_list:
             current_node = heapq.heappop(open_list)
@@ -28,26 +28,35 @@ class Search:
             if current_node.state.isGoal():
                 return current_node, complexity
 
-            closed_set.add(current_node.state)
+            closed_set.add(current_node)
 
             successors = current_node.state.successorFunction()
-            
+
             print("step: ", complexity)
-            
+
             complexity += 1
 
             for action, successor_state in successors:
                 new_node = Node(successor_state, current_node, action)
 
-                existing_node = None
-                if new_node in open_list:
-                    existing_node = new_node
+                # existing_node = None
 
-                if existing_node is None or new_node.f < existing_node.f:
-                    if existing_node:
-                        open_list.remove(existing_node)
-
+                if new_node not in open_list and new_node not in closed_set:
                     heapq.heappush(open_list, new_node)
+
+                elif new_node in open_list:
+                    for node in open_list:
+                        if node == new_node and node > new_node:
+                            open_list.remove(node)
+                            heapq.heappush(open_list, new_node)
+                            break
+
+                elif new_node in closed_set:
+                    for node in closed_set:
+                        if node == new_node and node > new_node:
+                            closed_set.remove(node)
+                            heapq.heappush(open_list, new_node)
+                            break
 
         return None
 
@@ -91,4 +100,3 @@ class Search:
                         return child, step
                     # Put the child in the OPEN queue
                     open.put(child)
-

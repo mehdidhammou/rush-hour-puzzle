@@ -73,10 +73,9 @@ class TestGame:
             if current_node.state.isGoal():
                 return current_node, complexity
 
-            closed_set.add(current_node.state)
+            closed_set.add(current_node)
 
             successors = current_node.state.successorFunction()
-
 
             complexity += 1
 
@@ -193,20 +192,29 @@ class TestGame:
             # Update the display
             pygame.display.update()
 
-            clock.tick(10)
+            clock.tick(60)
 
             for action, successor_state in successors:
                 new_node = Node(successor_state, current_node, action)
 
-                existing_node = None
-                if new_node in open_list:
-                    existing_node = new_node
+                # existing_node = None
 
-                if existing_node is None or new_node.f < existing_node.f:
-                    if existing_node:
-                        open_list.remove(existing_node)
-
+                if new_node not in open_list and new_node not in closed_set:
                     heapq.heappush(open_list, new_node)
+
+                elif new_node in open_list:
+                    for node in open_list:
+                        if node == new_node and node > new_node:
+                            open_list.remove(node)
+                            heapq.heappush(open_list, new_node)
+                            break
+
+                elif new_node in closed_set:
+                    for node in closed_set:
+                        if node == new_node and node > new_node:
+                            closed_set.remove(node)
+                            heapq.heappush(open_list, new_node)
+                            break
 
         pygame.quit()
         return None
