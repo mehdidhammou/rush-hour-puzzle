@@ -2,8 +2,8 @@ from classes.RushHourPuzzle import RushHourPuzzle
 from classes.Search import Search
 from classes.Game import Game
 from classes.TestGame import TestGame
-PUZZLE_FILE = "lib/puzzles/1.csv"
-HEURISTIC = 1
+PUZZLE_FILE = "lib/puzzles/2-c.csv"
+HEURISTIC = 4
 
 def main():
     initial_state = RushHourPuzzle(PUZZLE_FILE)

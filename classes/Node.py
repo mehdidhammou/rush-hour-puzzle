@@ -29,7 +29,7 @@ class Node:
             1: lambda: self.heuristic1(),
             2: lambda: self.heuristic2(),
             3: lambda: self.heuristic3(),
-            4: lambda: (self.heuristic1() + self.heuristic2()) ** 3,
+            4: lambda: self.heuristic1() * 2.1 - self.heuristic2() * 2,
         }
         return self.g + heuristics[heuristic]()
 
@@ -42,26 +42,23 @@ class Node:
 
     """ Second heuristic: number of vehicles that block the way to the exit """
     # def heuristic2(self):
-        #     for vehicle in self.state.vehicles:
-        #         if vehicle["id"] == "X":
-        #             unique_vehicles = set(self.state.board[vehicle["y"]][vehicle["x"] :])
-        #             if " " in unique_vehicles:
-        #                 return self.heuristic1() + len(unique_vehicles) - 2
-        #             return self.heuristic1() + len(unique_vehicles) - 1
-   
-            
+    #     for vehicle in self.state.vehicles:
+    #         if vehicle["id"] == "X":
+    #             unique_vehicles = set(self.state.board[vehicle["y"]][vehicle["x"] :])
+    #             if " " in unique_vehicles:
+    #                 return self.heuristic1() + len(unique_vehicles) - 2
+    #             return self.heuristic1() + len(unique_vehicles) - 1
+
     def heuristic2(self):
-    #    write another heuristic that is admissible and consistent
         count = 0
         for vehicle in self.state.vehicles:
             if vehicle["id"] == "X":
-                for i in range(vehicle["x"] + vehicle["length"], self.state.board_width):
-                    if self.state.board[vehicle["y"]][i] != ".":
+                for i in range(
+                    vehicle["x"] + vehicle["length"], self.state.board_width
+                ):
+                    if self.state.board[vehicle["y"]][i] != " ":
                         count += 1
                 return count
-            
-        
-
 
     """ Third heuristic: manhattan distance from target vehicle to the exit """
 
