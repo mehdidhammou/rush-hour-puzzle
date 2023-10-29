@@ -2,8 +2,6 @@ from classes.Node import Node
 from queue import Queue
 from classes.RushHourPuzzle import RushHourPuzzle
 import heapq
-
-
 class Search:
 
     """A* using the manhattan distance"""
@@ -33,15 +31,13 @@ class Search:
             successors = current_node.state.successorFunction()
 
             # clear the terminal
-            print("\033[H\033[J")
-            print("step: ", complexity)
+            # print("\033[H\033[J")
+            # print("step: ", complexity)
 
             complexity += 1
 
             for action, successor_state in successors:
-                new_node = Node(successor_state, current_node, action)
-
-                # existing_node = None
+                new_node = Node(successor_state, current_node, action, 1, heuristic)
 
                 if new_node not in open_list and new_node not in closed_set:
                     heapq.heappush(open_list, new_node)
