@@ -2,8 +2,9 @@ from classes.Node import Node
 from queue import Queue
 from classes.RushHourPuzzle import RushHourPuzzle
 import heapq
-class Search:
 
+
+class Search:
     """A* using the manhattan distance"""
 
     @staticmethod
@@ -18,7 +19,7 @@ class Search:
         heapq.heappush(open_list, start_node)
 
         # set of nodes that have been expanded
-        closed_set : set[Node] = set()
+        closed_set: set[Node] = set()
 
         while open_list:
             current_node = heapq.heappop(open_list)
